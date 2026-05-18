@@ -1,0 +1,39 @@
+.optionsContainer {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #8b8686;
+  margin: 20px;
+}
+
+.optionsContent {
+  margin: 0 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.optionsText {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.count {
+  font-size: 20px;
+  font-weight: 600;
+  color: #f12424;
+}
+
+.delBtn {
+  padding: 5px 10px;
+  font-size: 16px;
+  background: #e27979;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.delBtn:hover {
+  background: #dfdada;
+  color: #f12424;
+}

@@ -1,0 +1,10 @@
+.header {
+  padding: 20px 0;
+  text-align: center;
+  border-bottom: 2px solid #8b8686;
+  margin-bottom: 20px;
+}
+
+.headerTitle {
+  font-size: 35px;
+}

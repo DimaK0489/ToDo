@@ -1,0 +1,37 @@
+.groupContainer {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #8b8686;
+  margin: 20px;
+}
+
+.groupBtns {
+  width: 100vw;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e0c5c5;
+  border-radius: 6px;
+  background: #fef2f2;
+}
+
+.btn {
+  padding: 5px 10px;
+  background: #e7d6af;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.btn:hover {
+  color: #fef2f2;
+  background: #8b8686;
+  cursor: pointer;
+}
+
+.btnActive {
+  background: #e0c5c5;
+}

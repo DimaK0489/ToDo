@@ -1,0 +1,71 @@
+.section {
+  padding-bottom: 20px;
+  border-bottom: 2px solid #8b8686;
+  margin: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.title {
+  font-size: 20px;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #4f46e5;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.doneText {
+  font-size: 16px;
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.deleteBtn {
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  color: #f4783f;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.deleteBtn:hover {
+  background: #eb2929;
+  color: #fef2f2;
+}
+
+.deleteBtn:active {
+  transform: scale(0.95);
+}
