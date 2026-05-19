@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { AddItemForm } from "./components/AddItemForm/AddItemForm";
-import { Header } from "./components/Header/Header";
-import { initialTodolists, type TodoType } from "./todoData";
-import { Todolists } from "./components/Todolists/Todolists";
-import { FilterGroup } from "./components/FilterGroup/FilterGroup";
 import { AdditionalOptions } from "./components/AdditionalOptions/AdditionalOptions";
+import { FilterGroup } from "./components/FilterGroup/FilterGroup";
+import { Header } from "./components/Header/Header";
+import { Todolists } from "./components/Todolists/Todolists";
+import { getData } from "./helpers";
+import { type TodoType } from "./todoData";
 
 export type FilterType = "all" | "completed" | "active";
 
 function App() {
-  const getData = () => {
-    const savedData = localStorage.getItem("todolists-data");
-    return savedData ? JSON.parse(savedData) : initialTodolists;
-  };
   const [todolist, setTodolist] = useState<TodoType[]>(getData);
   const [filter, setFilter] = useState<FilterType>("all");
 

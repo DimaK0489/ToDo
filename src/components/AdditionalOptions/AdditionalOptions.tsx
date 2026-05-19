@@ -15,7 +15,7 @@ export const AdditionalOptions = ({
         <p className={s.optionsText}>
           Uncompleted tasks: <span className={s.count}>{countTasks}</span>
         </p>
-        <button className={s.delBtn} onClick={() => deleteCompletedTodo()}>
+        <button className={s.delBtn} onClick={deleteCompletedTodo}>
           Delete Completed Tasks
         </button>
       </div>
