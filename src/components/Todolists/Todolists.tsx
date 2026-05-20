@@ -1,4 +1,4 @@
-import type { TodoType } from "../../todoData";
+import type { TodoType } from "../../types";
 import { EditField } from "../EditField/EditField";
 import s from "./Todolists.module.css";
 
@@ -25,11 +25,11 @@ export const Todolists = ({
             <li key={el.id} className={s.item}>
               <input
                 type="checkbox"
-                checked={el.isDone}
+                checked={el.isCompleted}
                 onChange={(e) => changeStatus(el.id, e.currentTarget.checked)}
                 className={s.checkbox}
               />
-              <span className={el.isDone ? s.doneText : s.text}>
+              <span className={el.isCompleted ? s.doneText : s.text}>
                 <EditField
                   title={el.title}
                   changeItem={(newTitle) => updateTitle(el.id, newTitle)}
