@@ -20,3 +20,5 @@ export const showAlertError = (error: unknown, defaultMessage: string) => {
 
   alert(defaultMessage);
 };
+
+export const authentication = () => !!localStorage.getItem("token");

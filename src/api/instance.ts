@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { TodoType } from "../types";
+import type { LoginDataType, LoginResponse, TodoType } from "../types";
 
 export const api = axios.create({
   baseURL: "https://todo-redev.herokuapp.com/api",
@@ -7,9 +7,15 @@ export const api = axios.create({
   headers: {
     "Content-Type": "application/json",
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZsYWQ4QG1haWwucnUiLCJpZCI6MjMyOCwiaWF0IjoxNzc5MTkyNjg0fQ.H2olsEb9DGYZRVMquAgJVuQYcFkTPq4gKrk8CH3txSs",
   },
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export const todosAPI = {
@@ -27,5 +33,14 @@ export const todosAPI = {
   },
   updateTitle(id: number, newTitle: string) {
     return api.patch<TodoType>(`/todos/${id}`, { title: newTitle });
+  },
+};
+
+export const AuthAPI = {
+  login(data: LoginDataType) {
+    return api.post<LoginResponse>("/auth/login", data);
+  },
+  registration() {
+    return api.post("/users/register");
   },
 };

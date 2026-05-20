@@ -4,3 +4,14 @@ export interface TodoType {
   isCompleted: boolean;
   user_id: number;
 }
+
+export type FilterType = "all" | "completed" | "active";
+
+export type LoginResponse = {
+  token: string;
+};
+
+export type LoginDataType = {
+  email: string;
+  password: string;
+};
