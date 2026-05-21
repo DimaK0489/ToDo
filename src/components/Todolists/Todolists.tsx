@@ -1,4 +1,4 @@
-import type { TodoType } from "../../types";
+import type { TodoType } from "../../types/types";
 import { EditField } from "../EditField/EditField";
 import s from "./Todolists.module.css";
 

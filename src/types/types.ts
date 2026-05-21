@@ -15,3 +15,11 @@ export type LoginDataType = {
   email: string;
   password: string;
 };
+
+export type RegistrationDataType = {
+  username: string;
+  email: string;
+  password: string;
+  gender: string;
+  age: number;
+};

@@ -6,11 +6,18 @@ import { FilterGroup } from "../../components/FilterGroup/FilterGroup";
 import { Header } from "../../components/Header/Header";
 import { Loading } from "../../components/Loading/Loading";
 import { Todolists } from "../../components/Todolists/Todolists";
-import { showAlertError } from "../../helpers";
-import type { FilterType, TodoType } from "../../types";
+import { showAlertError } from "../../common/helpers";
+import type { FilterType, TodoType } from "../../types/types";
 import s from "./HomePage.module.css";
+import { ROUTES } from "../../common/routes";
+import { useNavigate } from "react-router-dom";
 
-export const HomePage = () => {
+interface Props {
+  onLogOut: () => void;
+}
+
+export const HomePage = ({ onLogOut }: Props) => {
+  const navigate = useNavigate();
   const [todolist, setTodolist] = useState<TodoType[]>([]);
   const [filter, setFilter] = useState<FilterType>("all");
 
@@ -64,14 +71,7 @@ export const HomePage = () => {
       await todosAPI.changeStatus(id);
       setTodolist(
         todolist.map((t) =>
-          t.id === id
-            ? {
-                id: t.id,
-                title: t.title,
-                isCompleted: isCompleted,
-                user_id: t.user_id,
-              }
-            : t,
+          t.id === id ? { ...t, isCompleted: isCompleted } : t,
         ),
       );
     } catch (error) {
@@ -119,10 +119,19 @@ export const HomePage = () => {
     }
   };
 
+  const handleLogOut = () => {
+    onLogOut();
+    navigate(ROUTES.login);
+  };
+
   return (
     <div className={s.homeContainer}>
       <div className={s.homeContent}>
-        <Header title="My To-Do List" />
+        <Header
+          title="My To-Do List"
+          btnName="LogOut"
+          onBtnClick={handleLogOut}
+        />
         <AddItemForm addTodolist={addTodolist} />
         {isLoading ? (
           <Loading />

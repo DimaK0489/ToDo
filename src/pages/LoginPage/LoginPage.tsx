@@ -1,16 +1,19 @@
 import { useState, type SubmitEvent } from "react";
 import { AuthAPI } from "../../api/instance";
 import { Header } from "../../components/Header/Header";
-import { showAlertError } from "../../helpers";
+import { showAlertError } from "../../common/helpers";
 import s from "./LoginPage.module.css";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../common/routes";
 
 interface Props {
   onLoginSuccess: () => void;
 }
 
 export const LoginPage = ({ onLoginSuccess }: Props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("dim0404@mail.ru");
+  const [password, setPassword] = useState("1qazZAQ!");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,10 +25,10 @@ export const LoginPage = ({ onLoginSuccess }: Props) => {
       const token = response.data.token;
       localStorage.setItem("token", token);
       onLoginSuccess();
-      alert("Authorization successful");
+      navigate("/");
     } catch (error) {
       console.error(error);
-      showAlertError(error, "Error");
+      showAlertError(error, "Error log in");
     } finally {
       setIsLoading(false);
     }
@@ -34,7 +37,11 @@ export const LoginPage = ({ onLoginSuccess }: Props) => {
   return (
     <div className={s.container}>
       <div className={s.content}>
-        <Header title="Sign In" />
+        <Header
+          title="Sign In"
+          btnName="Registration"
+          onBtnClick={() => navigate(ROUTES.registration)}
+        />
         <form onSubmit={handleSubmit} className={s.form}>
           <label htmlFor="email" className={s.label}>
             Email
@@ -45,6 +52,7 @@ export const LoginPage = ({ onLoginSuccess }: Props) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <label htmlFor="password" className={s.label}>
             Password
@@ -55,6 +63,7 @@ export const LoginPage = ({ onLoginSuccess }: Props) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <button className={s.submitBtn} disabled={isLoading}>
             Log In

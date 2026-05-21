@@ -1,4 +1,4 @@
-import type { FilterType } from "../../App";
+import type { FilterType } from "../../types/types";
 import s from "./FilterGroup.module.css";
 
 interface Props {
