@@ -4,7 +4,7 @@ import s from "./Todolists.module.css";
 
 interface Props {
   data: TodoType[];
-  changeStatus: (id: number, isDone: boolean) => void;
+  changeStatus: (id: number) => void;
   deleteTodolist: (id: number) => void;
   updateTitle: (id: number, newTitle: string) => void;
 }
@@ -26,7 +26,7 @@ export const Todolists = ({
               <input
                 type="checkbox"
                 checked={el.isCompleted}
-                onChange={(e) => changeStatus(el.id, e.currentTarget.checked)}
+                onChange={() => changeStatus(el.id)}
                 className={s.checkbox}
               />
               <span className={el.isCompleted ? s.doneText : s.text}>
