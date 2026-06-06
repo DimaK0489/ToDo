@@ -25,11 +25,11 @@ export const Todolists = ({
             <li key={el.id} className={s.item}>
               <input
                 type="checkbox"
-                checked={el.isCompleted}
+                checked={el.completed}
                 onChange={() => changeStatus(el.id)}
                 className={s.checkbox}
               />
-              <span className={el.isCompleted ? s.doneText : s.text}>
+              <span className={el.completed ? s.doneText : s.text}>
                 <EditField
                   title={el.title}
                   changeItem={(newTitle) => updateTitle(el.id, newTitle)}

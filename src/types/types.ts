@@ -1,14 +1,14 @@
 export interface TodoType {
   id: number;
   title: string;
-  isCompleted: boolean;
+  completed: boolean;
   user_id: number;
 }
 
 export type FilterType = "all" | "completed" | "active";
 
 export type LoginResponse = {
-  token: string;
+  access_token: string;
 };
 
 export type LoginDataType = {
@@ -17,9 +17,17 @@ export type LoginDataType = {
 };
 
 export type RegistrationDataType = {
-  username: string;
   email: string;
   password: string;
-  gender: string;
-  age: number;
+  userName: string;
 };
+
+export interface GetTodosResponse {
+  data: TodoType[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}

@@ -34,19 +34,19 @@ export const HomePage = ({ onLogOut }: Props) => {
   const [filter, setFilter] = useState<FilterType>("all");
 
   const filteredToDo = todos.filter((t) => {
-    if (filter === "completed") return t.isCompleted;
-    if (filter === "active") return !t.isCompleted;
+    if (filter === "completed") return t.completed;
+    if (filter === "active") return !t.completed;
     return true;
   });
 
-  const activeTasks = todos.filter((t) => !t.isCompleted).length;
+  const activeTasks = todos.filter((t) => !t.completed).length;
 
   const deleteCompletedTodo = () => {
-    const countCompletedTodo = todos.filter((t) => t.isCompleted);
+    const countCompletedTodo = todos.filter((t) => t.completed);
     if (countCompletedTodo.length === 0) {
       alert("There are no completed tasks to delete.");
     } else {
-      deleteCompleted(todos.filter((t) => t.isCompleted));
+      deleteCompleted(todos.filter((t) => t.completed));
     }
   };
 

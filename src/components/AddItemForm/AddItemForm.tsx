@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type KeyboardEvent } from "react";
 import s from "./AddItemForm.module.css";
 
 interface Props {
-  addTodolist: (title: string) => void;
+  addTodolist: (data: { title: string; description: string }) => void;
 }
 
 export const AddItemForm = ({ addTodolist }: Props) => {
@@ -23,7 +23,7 @@ export const AddItemForm = ({ addTodolist }: Props) => {
   const addItemHandler = () => {
     const trimmedTitle = newTaskTitle.trim();
     if (trimmedTitle !== "") {
-      addTodolist(trimmedTitle);
+      addTodolist({ title: trimmedTitle, description: "" });
       setNewTaskTitle("");
     } else {
       setError("Title is required");

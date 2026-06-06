@@ -12,7 +12,7 @@ interface Props {
 
 export const LoginPage = ({ onLoginSuccess }: Props) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("dim0404@mail.ru");
+  const [email, setEmail] = useState("dim0489@mail.ru");
   const [password, setPassword] = useState("1qazZAQ!");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,7 @@ export const LoginPage = ({ onLoginSuccess }: Props) => {
     setIsLoading(true);
     try {
       const response = await AuthAPI.login({ email, password });
-      const token = response.data.token;
+      const token = response.data.access_token;
       localStorage.setItem("token", token);
       onLoginSuccess();
       navigate("/");

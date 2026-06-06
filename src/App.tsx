@@ -1,30 +1,40 @@
-import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { ROUTES } from "./common/routes";
+import { Loading } from "./components/Loading/Loading";
+import { useAuthMe } from "./hooks/useAuthMe";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { authentication } from "./common/helpers";
 import { Registration } from "./pages/Registration/Registration";
-import { Route, Routes } from "react-router-dom";
-import { ROUTES } from "./common/routes";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(authentication);
+  const queryClient = useQueryClient();
+  const { isLoading, isSuccess, refetch } = useAuthMe();
 
   const loginSuccess = () => {
-    setIsAuth(true);
+    queryClient.invalidateQueries({ queryKey: ["authMe"] });
+    refetch();
   };
 
   const logoutSuccess = () => {
     localStorage.removeItem("token");
-    setIsAuth(false);
+    queryClient.setQueryData(["authMe"], null);
+    queryClient.invalidateQueries({ queryKey: ["authMe"] });
   };
+
+  if (isLoading && !!localStorage.getItem("token")) {
+    return <Loading />;
+  }
+
+  const isAuthenticated = !!localStorage.getItem("token") && isSuccess;
 
   return (
     <Routes>
       <Route
         path="/"
         element={
-          isAuth ? (
+          isAuthenticated ? (
             <HomePage onLogOut={logoutSuccess} />
           ) : (
             <LoginPage onLoginSuccess={loginSuccess} />

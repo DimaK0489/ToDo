@@ -1,5 +1,6 @@
 import axios from "axios";
 import type {
+  GetTodosResponse,
   LoginDataType,
   LoginResponse,
   RegistrationDataType,
@@ -24,17 +25,23 @@ api.interceptors.request.use((config) => {
 });
 
 export const todosAPI = {
-  getTodos() {
-    return api.get<TodoType[]>("/todos");
+  getTodos(completed?: boolean) {
+    return api.get<GetTodosResponse>("/todos", {
+      params: {
+        completed,
+        page: 1,
+        limit: 10,
+      },
+    });
   },
-  createTodo(title: string) {
-    return api.post<TodoType>("/todos", { title });
+  createTodo(data: { title: string; description: string }) {
+    return api.post("/todos", data);
   },
   deleteTodo(id: number) {
     return api.delete<TodoType>(`/todos/${id}`);
   },
   changeStatus(id: number) {
-    return api.patch<TodoType>(`/todos/${id}/isCompleted`);
+    return api.patch<TodoType>(`/todos/${id}/toggle`);
   },
   updateTitle(id: number, newTitle: string) {
     return api.patch<TodoType>(`/todos/${id}`, { title: newTitle });
@@ -46,6 +53,9 @@ export const AuthAPI = {
     return api.post<LoginResponse>("/auth/login", data);
   },
   registration(data: RegistrationDataType) {
-    return api.post("/users/register", data);
+    return api.post<LoginResponse>("/auth/register", data);
+  },
+  authMe() {
+    return api.get("/auth/me");
   },
 };

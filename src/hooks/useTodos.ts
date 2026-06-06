@@ -17,13 +17,13 @@ export const useTodos = () => {
     queryKey: TODOS_KEY,
     queryFn: async () => {
       const response = await todosAPI.getTodos();
-      return response.data;
+      return response.data.data;
     },
   });
 
   const createTodoMutation = useMutation({
-    mutationFn: async (title: string) => {
-      const response = await todosAPI.createTodo(title);
+    mutationFn: async (newData: { title: string; description: string }) => {
+      const response = await todosAPI.createTodo(newData);
       return response.data;
     },
     onSuccess: () => {

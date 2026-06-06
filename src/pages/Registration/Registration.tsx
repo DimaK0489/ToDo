@@ -8,11 +8,9 @@ import { ROUTES } from "../../common/routes";
 
 export const Registration = () => {
   const navigate = useNavigate();
-  const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [gender, setGender] = useState<"male" | "female">("male");
-  const [age, setAge] = useState<number | "">("");
+  const [userName, setUserName] = useState<string>("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,11 +19,9 @@ export const Registration = () => {
     setIsLoading(true);
     try {
       await AuthAPI.registration({
-        username,
         email,
         password,
-        gender,
-        age: Number(age),
+        userName,
       });
       navigate(ROUTES.login);
     } catch (error) {
@@ -43,17 +39,6 @@ export const Registration = () => {
           onBtnClick={() => navigate(ROUTES.login)}
         />
         <form onSubmit={handleSubmit} className={s.form}>
-          <label htmlFor="userName" className={s.label}>
-            UserName
-          </label>
-          <input
-            className={s.input}
-            type="userName"
-            id="userName"
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
-            required
-          />
           <label htmlFor="email" className={s.label}>
             Email
           </label>
@@ -76,35 +61,15 @@ export const Registration = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <label htmlFor="gender" className={s.label}>
-            Gender
-          </label>
-          <select
-            className={s.select}
-            name=""
-            id="gender"
-            value={gender}
-            onChange={(e) => setGender(e.target.value as "male" | "female")}
-          >
-            <option className={s.option} value="male">
-              Male
-            </option>
-            <option className={s.option} value="female">
-              Female
-            </option>
-          </select>
-          <label htmlFor="age" className={s.label}>
-            Age
+          <label htmlFor="name" className={s.label}>
+            Name
           </label>
           <input
             className={s.input}
-            id="age"
-            type="age"
-            value={age}
-            onChange={(e) =>
-              setAge(e.target.value === "" ? "" : Number(e.target.value))
-            }
-            placeholder="33"
+            id="name"
+            type="name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             required
           />
           <button type="submit" className={s.submitBtn} disabled={isLoading}>
