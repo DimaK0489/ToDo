@@ -69,3 +69,19 @@
 .deleteBtn:active {
   transform: scale(0.95);
 }
+
+.infoBtn {
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.infoBtn:hover {
+  background: #45bce4;
+}
+
+.infoBtn:active {
+  transform: scale(0.95);
+}

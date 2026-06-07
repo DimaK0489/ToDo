@@ -8,9 +8,10 @@ import { Header } from "../../components/Header/Header";
 import { Loading } from "../../components/Loading/Loading";
 import { Todolists } from "../../components/Todolists/Todolists";
 import { useTodos } from "../../hooks/useTodos";
-import type { FilterType } from "../../types/types";
+import type { FilterType, TodoType } from "../../types/types";
 import s from "./HomePage.module.css";
 import { showAlertError } from "../../common/helpers";
+import { TodoDetailsModal } from "../../components/DetailsModal/TodoDetailsModal";
 
 interface Props {
   onLogOut: () => void;
@@ -32,6 +33,7 @@ export const HomePage = ({ onLogOut }: Props) => {
 
   const navigate = useNavigate();
   const [filter, setFilter] = useState<FilterType>("all");
+  const [selectTodo, setSelectTodo] = useState<TodoType | null>(null);
 
   const filteredToDo = todos.filter((t) => {
     if (filter === "completed") return t.completed;
@@ -77,6 +79,7 @@ export const HomePage = ({ onLogOut }: Props) => {
             changeStatus={changeStatus}
             deleteTodolist={deleteTodo}
             updateTitle={(id, newTitle) => updateTitle({ id, newTitle })}
+            onTodoClick={(todo) => setSelectTodo(todo)}
           />
         )}
         <FilterGroup currentFilter={filter} onChangeFilter={setFilter} />
@@ -84,6 +87,12 @@ export const HomePage = ({ onLogOut }: Props) => {
           countTasks={activeTasks}
           deleteCompletedTodo={deleteCompletedTodo}
         />
+        {selectTodo && (
+          <TodoDetailsModal
+            todo={selectTodo}
+            onClose={() => setSelectTodo(null)}
+          />
+        )}
       </div>
     </div>
   );

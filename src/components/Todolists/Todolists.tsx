@@ -7,6 +7,7 @@ interface Props {
   changeStatus: (id: number) => void;
   deleteTodolist: (id: number) => void;
   updateTitle: (id: number, newTitle: string) => void;
+  onTodoClick: (todo: TodoType) => void;
 }
 
 export const Todolists = ({
@@ -14,6 +15,7 @@ export const Todolists = ({
   changeStatus,
   deleteTodolist,
   updateTitle,
+  onTodoClick,
 }: Props) => {
   return (
     <section className={s.section}>
@@ -40,6 +42,9 @@ export const Todolists = ({
                 onClick={() => deleteTodolist(el.id)}
               >
                 X
+              </button>
+              <button className={s.infoBtn} onClick={() => onTodoClick(el)}>
+                ℹ️
               </button>
             </li>
           ))}

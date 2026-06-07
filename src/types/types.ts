@@ -2,6 +2,7 @@ export interface TodoType {
   id: number;
   title: string;
   completed: boolean;
+  description?: string;
   user_id: number;
 }
 
