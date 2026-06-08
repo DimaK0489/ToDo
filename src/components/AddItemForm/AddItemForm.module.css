@@ -75,3 +75,29 @@
   font-weight: 500;
   margin: 10px 0 0 35px;
 }
+
+.descriptionWrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition:
+    grid-template-rows 0.3s ease-out,
+    opacity 0.2s ease-out;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.descriptionWrapper.expanded {
+  margin: 0 30px;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+.descriptionWrapper textarea {
+  min-height: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  resize: none;
+}

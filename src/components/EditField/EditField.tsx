@@ -53,7 +53,7 @@ export const EditField = ({ title, changeItem }: Props) => {
     <>
       <span onDoubleClick={() => setEditMode(true)}>{title}</span>
       <button className={s.editBtn} onClick={() => setEditMode(true)}>
-        Edit
+        ✏️
       </button>
     </>
   );

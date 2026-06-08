@@ -1,4 +1,10 @@
-import { useState, type ChangeEvent, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
 import s from "./AddItemForm.module.css";
 
 interface Props {
@@ -7,7 +13,23 @@ interface Props {
 
 export const AddItemForm = ({ addTodolist }: Props) => {
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isExpanded, setIsExpanded] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const formRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        if (newTaskTitle.trim() === "" && description.trim() === "") {
+          setIsExpanded(false);
+        }
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [newTaskTitle, description]);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTaskTitle(e.target.value);
@@ -22,9 +44,11 @@ export const AddItemForm = ({ addTodolist }: Props) => {
 
   const addItemHandler = () => {
     const trimmedTitle = newTaskTitle.trim();
+    const trimmedDesc = description.trim();
     if (trimmedTitle !== "") {
-      addTodolist({ title: trimmedTitle, description: "" });
+      addTodolist({ title: trimmedTitle, description: trimmedDesc });
       setNewTaskTitle("");
+      setDescription("");
     } else {
       setError("Title is required");
     }
@@ -40,6 +64,7 @@ export const AddItemForm = ({ addTodolist }: Props) => {
           value={newTaskTitle}
           onChange={onChangeHandler}
           onKeyDown={onKeyDownHandler}
+          onFocus={() => setIsExpanded(true)}
         />
 
         <button className={s.btn} onClick={addItemHandler}>
@@ -47,6 +72,17 @@ export const AddItemForm = ({ addTodolist }: Props) => {
         </button>
       </div>
       {error && <p className={s.error}>{`Error: ${error}`}</p>}
+      <div
+        ref={formRef}
+        className={`${s.descriptionWrapper} ${isExpanded ? s.expanded : ""}`}
+      >
+        <textarea
+          placeholder="Enter description (optional)"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={3}
+        />
+      </div>
     </div>
   );
 };

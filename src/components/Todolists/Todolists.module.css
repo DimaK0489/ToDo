@@ -53,6 +53,8 @@
 }
 
 .deleteBtn {
+  width: 30px;
+  height: 30px;
   border: none;
   padding: 6px;
   border-radius: 6px;
@@ -71,6 +73,8 @@
 }
 
 .infoBtn {
+  width: 30px;
+  height: 30px;
   border: none;
   padding: 6px;
   border-radius: 6px;

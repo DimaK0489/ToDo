@@ -4,22 +4,23 @@
 }
 
 .editBtn {
+  width: 30px;
+  height: 30px;
   margin-left: 20px;
   border: none;
   padding: 6px;
   border-radius: 6px;
-  color: #4f46e5;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
 
 .editBtn:hover {
   background: #4f46e5;
-  color: #fef2f2;
 }
 
 .btnSave {
-  margin-left: 5px;
+  height: 30px;
+  margin-left: 10px;
   border: none;
   padding: 6px;
   border-radius: 6px;

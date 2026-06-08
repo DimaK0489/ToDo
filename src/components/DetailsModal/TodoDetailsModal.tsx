@@ -17,15 +17,15 @@ export const TodoDetailsModal = ({ todo, onClose }: ModalProps) => {
           </button>
         </div>
 
-        <div className="modal-body">
-          <p>
+        <div className={s.modalBody}>
+          <p className={s.text}>
             <strong>Name:</strong> {todo.title}
           </p>
-          <p>
+          <p className={s.text}>
             <strong>Description:</strong>{" "}
             {todo.description || "Description missing"}
           </p>
-          <p>
+          <p className={s.text}>
             <strong>Status:</strong>{" "}
             {todo.completed ? "✅ Done" : "⏳ In progress"}
           </p>

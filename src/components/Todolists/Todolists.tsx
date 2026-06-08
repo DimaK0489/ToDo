@@ -37,14 +37,15 @@ export const Todolists = ({
                   changeItem={(newTitle) => updateTitle(el.id, newTitle)}
                 />
               </span>
+
+              <button className={s.infoBtn} onClick={() => onTodoClick(el)}>
+                ℹ️
+              </button>
               <button
                 className={s.deleteBtn}
                 onClick={() => deleteTodolist(el.id)}
               >
                 X
-              </button>
-              <button className={s.infoBtn} onClick={() => onTodoClick(el)}>
-                ℹ️
               </button>
             </li>
           ))}
