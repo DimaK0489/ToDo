@@ -8,8 +8,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false, // Отключаем перезапрос при смене вкладки браузера
-      retry: 1, // Количество попыток перезапроса при ошибке
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
   },
 });
