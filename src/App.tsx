@@ -1,33 +1,41 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { ROUTES } from "./common/routes";
 import { Loading } from "./components/Loading/Loading";
-import { useAuthMe } from "./hooks/useAuthMe";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { Registration } from "./pages/Registration/Registration";
+import { todoApi, useAuthMeQuery } from "./services/todoApi";
+import { useState } from "react";
 
 function App() {
-  const queryClient = useQueryClient();
-  const { isLoading, isSuccess, refetch } = useAuthMe();
+  const dispatch = useDispatch();
+
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem("token"),
+  );
+
+  const { isLoading, isSuccess } = useAuthMeQuery(undefined, {
+    skip: !token,
+  });
 
   const loginSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["authMe"] });
-    refetch();
+    const savedToken = localStorage.getItem("token");
+    setToken(savedToken);
   };
 
   const logoutSuccess = () => {
     localStorage.removeItem("token");
-    queryClient.setQueryData(["authMe"], null);
-    queryClient.invalidateQueries({ queryKey: ["authMe"] });
+    setToken(null);
+    dispatch(todoApi.util.resetApiState());
   };
 
-  if (isLoading && !!localStorage.getItem("token")) {
+  if (isLoading && !!token) {
     return <Loading />;
   }
 
-  const isAuthenticated = !!localStorage.getItem("token") && isSuccess;
+  const isAuthenticated = !!token && isSuccess;
 
   return (
     <Routes>

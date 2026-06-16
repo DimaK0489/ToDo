@@ -1,10 +1,10 @@
 import { useState, type SubmitEvent } from "react";
-import { AuthAPI } from "../../api/instance";
-import { Header } from "../../components/Header/Header";
-import { showAlertError } from "../../common/helpers";
-import s from "./LoginPage.module.css";
 import { useNavigate } from "react-router-dom";
+import { showAlertError } from "../../common/helpers";
 import { ROUTES } from "../../common/routes";
+import { Header } from "../../components/Header/Header";
+import { useLoginMutation } from "../../services/todoApi";
+import s from "./LoginPage.module.css";
 
 interface Props {
   onLoginSuccess: () => void;
@@ -12,25 +12,23 @@ interface Props {
 
 export const LoginPage = ({ onLoginSuccess }: Props) => {
   const navigate = useNavigate();
+
+  const [login, { isLoading }] = useLoginMutation();
+
   const [email, setEmail] = useState("dim0489@mail.ru");
   const [password, setPassword] = useState("1qazZAQ!");
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
     try {
-      const response = await AuthAPI.login({ email, password });
-      const token = response.data.access_token;
+      const response = await login({ email, password }).unwrap();
+      const token = response.access_token;
       localStorage.setItem("token", token);
       onLoginSuccess();
       navigate("/");
     } catch (error) {
       console.error(error);
       showAlertError(error, "Error log in");
-    } finally {
-      setIsLoading(false);
     }
   };
 
