@@ -1,28 +1,27 @@
 import { useState, type SubmitEvent } from "react";
 import { Header } from "../../components/Header/Header";
 import s from "./Registration.module.css";
-import { AuthAPI } from "../../api/instance";
 import { showAlertError } from "../../common/helpers";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../common/routes";
+import { useRegistrationMutation } from "../../services/todoApi";
 
 export const Registration = () => {
   const navigate = useNavigate();
+  const [registration, { isLoading }] = useRegistrationMutation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState<string>("");
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
     try {
-      await AuthAPI.registration({
+      await registration({
         email,
         password,
         userName,
-      });
+      }).unwrap();
       navigate(ROUTES.login);
     } catch (error) {
       console.error(error);
@@ -67,13 +66,13 @@ export const Registration = () => {
           <input
             className={s.input}
             id="name"
-            type="name"
+            type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
             required
           />
           <button type="submit" className={s.submitBtn} disabled={isLoading}>
-            Register
+            {isLoading ? "Registering..." : "Register"}
           </button>
         </form>
       </div>

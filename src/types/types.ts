@@ -3,6 +3,8 @@ export interface TodoType {
   title: string;
   completed: boolean;
   description?: string;
+  createdAt?: string;
+  updatedAt?: string;
   user_id: number;
 }
 
@@ -25,10 +27,12 @@ export type RegistrationDataType = {
 
 export interface GetTodosResponse {
   data: TodoType[];
-  meta: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
+  meta: MetaType;
+}
+
+export interface MetaType {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }
